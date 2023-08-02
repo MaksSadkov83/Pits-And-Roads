@@ -20,6 +20,57 @@
             on_press:
                 root.manager.transition.direction = 'left'
                 root.manager.current = 'GPS'
+        Button:
+            text: "Гироскоп"
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'Gyroscope'
+
+
+<GyroscopeScreen>:
+    name: "Gyroscope"
+    facade: facade
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Button:
+                text: "Назад в меню"
+                on_press:
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'MainMenu'
+            Label:
+                text: "Гироскоп"
+        Label:
+            id: x_gyroscope
+            text: "X: " + str(root.x_calib)
+        Label:
+            id: y_gyroscope
+            text: "Y: " + str(root.y_calib)
+        Label:
+            id: z_gyroscope
+            text: "Z: " + str(root.z_calib)
+        Label:
+            id: accel_status
+            text: ''
+        BoxLayout:
+            orientation: 'horizontal'
+            Button:
+                id: enable_button
+                text: 'Включить гироскоп'
+                disabled: False
+                on_release:
+                    root.enable()
+                    disable_button.disabled = not disable_button.disabled
+                    enable_button.disabled = not enable_button.disabled
+            Button:
+                id: disable_button
+                text: 'Выключить гироскоп'
+                disabled: True
+                on_release:
+                    root.disable()
+                    disable_button.disabled = not disable_button.disabled
+                    enable_button.disabled = not enable_button.disabled
 
 
 <AccelerometerScreen>:

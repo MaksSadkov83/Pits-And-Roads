@@ -9,6 +9,38 @@ from plyer import gps
 Builder.load_file("PitsAndRoads.kv")
 
 
+class GyroscopeScreen(Screen):
+    x_calib = NumericProperty(0)
+    y_calib = NumericProperty(0)
+    z_calib = NumericProperty(0)
+
+    facade = ObjectProperty()
+
+    def enable(self):
+        try:
+            self.facade.enable()
+            Clock.schedule_interval(self.get_rotation, 1 / 20.)
+        except NotImplementedError:
+            import traceback
+            traceback.print_exc()
+            status = "Гироскоп не поддерживается ващей платформой"
+            self.ids.accel_status.text = status
+
+    def disable(self):
+        try:
+            self.facade.disable()
+            Clock.unschedule(self.get_rotation)
+        except NotImplementedError:
+            import traceback
+            traceback.print_exc()
+            status = "Гироскоп не поддерживается ващей платформой"
+            self.ids.accel_status.text = status
+
+    def get_rotation(self, dt):
+        if self.facade.rotation != (None, None, None):
+            self.x_calib, self.y_calib, self.z_calib = self.facade.rotation
+
+
 class AccelerometerScreen(Screen):
     def __init__(self):
         super().__init__()
@@ -126,6 +158,7 @@ class PistAndRoadsApp(App):
         sm.add_widget(AccelerometerScreen())
         sm.add_widget(CompassScreen())
         sm.add_widget(GPSScreen(name="GPS"))
+        sm.add_widget(GyroscopeScreen())
         from android.permissions import request_permissions, Permission
         request_permissions([Permission.ACCESS_FINE_LOCATION, Permission.ACCESS_COARSE_LOCATION])
         return sm
