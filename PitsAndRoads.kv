@@ -1,0 +1,125 @@
+#:import facade plyer.compass
+
+<MainMenuScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Ямы и Дороги"
+        Button:
+            text: "Аккселерометр"
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'Accelerometer'
+        Button:
+            text: "Компасс"
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'Compass'
+        Button:
+            text: "GPS"
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'GPS'
+
+
+<AccelerometerScreen>:
+    name: "Accelerometer"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Button:
+                text: "Назад в меню"
+                on_press:
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'MainMenu'
+            Label:
+                text: "Аккселерометр"
+        Label:
+            id: x_accelerometer
+            text: "X: "
+        Label:
+            id: y_accelerometer
+            text: "Y: "
+        Label:
+            id: z_accelerometer
+            text: "Z: "
+        Label:
+            id: accel_status
+            text: ''
+        ToggleButton:
+            id: accelerometer
+            text: "Запустить аккселерометр"
+            on_press: root.do_toggle()
+
+
+
+<CompassScreen>:
+    name: "Compass"
+    facade: facade
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Button:
+                text: "Назад в меню"
+                on_press:
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'MainMenu'
+            Label:
+                text: "Компасс"
+        Label:
+            id: x_compass
+            text: "X: " + str(root.x_calib)
+        Label:
+            id: y_compass
+            text: "Y: " + str(root.y_calib)
+        Label:
+            id: z_compass
+            text: "Z: " + str(root.z_calib)
+        Label:
+            id: accel_status
+            text: ''
+        BoxLayout:
+            orientation: 'horizontal'
+            Button:
+                id: enable_button
+                text: 'Включить компасс'
+                disabled: False
+                on_release:
+                    root.enable()
+                    disable_button.disabled = not disable_button.disabled
+                    enable_button.disabled = not enable_button.disabled
+            Button:
+                id: disable_button
+                text: 'Выключить компасс'
+                disabled: True
+                on_release:
+                    root.disable()
+                    disable_button.disabled = not disable_button.disabled
+                    enable_button.disabled = not enable_button.disabled
+
+
+
+<GPSScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Button:
+                text: "Назад в меню"
+                on_press:
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'MainMenu'
+            Label:
+                text: "GPS"
+        Label:
+            text: root.gps_location
+
+        Label:
+            text: root.gps_status
+        ToggleButton:
+            text: "Старт" if self.state == 'normal' else 'Стоп'
+            on_state:
+                root.start(500, 0) if self.state == 'down' else \
+                root.stop()
