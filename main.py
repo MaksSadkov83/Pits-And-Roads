@@ -4,7 +4,6 @@ from kivy.properties import StringProperty, ObjectProperty, NumericProperty
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.lang import Builder
 from plyer import accelerometer
-from plyer import compass
 from plyer import gps
 
 Builder.load_file("PitsAndRoads.kv")
