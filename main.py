@@ -126,6 +126,8 @@ class PistAndRoadsApp(App):
         sm.add_widget(AccelerometerScreen())
         sm.add_widget(CompassScreen())
         sm.add_widget(GPSScreen(name="GPS"))
+        from android.permissions import request_permissions, Permission
+        request_permissions([Permission.ACCESS_FINE_LOCATION, Permission.ACCESS_COARSE_LOCATION])
         return sm
 
     def on_pause(self):
