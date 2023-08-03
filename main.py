@@ -70,9 +70,9 @@ class AccelerometerScreen(Screen):
         val = accelerometer.acceleration[:3]
 
         if not val == (None, None, None):
-            self.ids.x_accelerometer.text = "X: " + str(val[0])
-            self.ids.y_accelerometer.text = "Y: " + str(val[1])
-            self.ids.z_accelerometer.text = "Z: " + str(val[2])
+            self.ids.x_accelerometer.text = "X: " + str(round(val[0], 4))
+            self.ids.y_accelerometer.text = "Y: " + str(round(val[1], 4))
+            self.ids.z_accelerometer.text = "Z: " + str(round(val[2], 4))
 
 
 class CompassScreen(Screen):
