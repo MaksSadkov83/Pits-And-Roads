@@ -79,6 +79,7 @@
     BoxLayout:
         orientation: "vertical"
         BoxLayout:
+            size_hint_y: 0.5
             orientation: "horizontal"
             Button:
                 text: "Назад в меню"
@@ -87,23 +88,26 @@
                     root.manager.current = 'MainMenu'
             Label:
                 text: "Аккселерометр"
+        Graph:
+            id: graph_plot
+            xlabel:'Время (x-К, y-З, z-C)'
+            ylabel:'Значение (g)'
+            y_grid_label: True
+            x_grid_label: True
+            padding: 5
+            xmin:0
+            xmax:100
+            ymin:-15
+            ymax:20
         Label:
-            id: x_accelerometer
-            text: "X: g"
-        Label:
-            id: y_accelerometer
-            text: "Y: g"
-        Label:
-            id: z_accelerometer
-            text: "Z: g"
-        Label:
+            size_hint_y: 0.2
             id: accel_status
             text: ''
         ToggleButton:
+            size_hint_y: 0.5
             id: accelerometer
             text: "Запустить аккселерометр"
             on_press: root.do_toggle()
-
 
 
 <CompassScreen>:
@@ -150,7 +154,6 @@
                     root.disable()
                     disable_button.disabled = not disable_button.disabled
                     enable_button.disabled = not enable_button.disabled
-
 
 
 <GPSScreen>:
