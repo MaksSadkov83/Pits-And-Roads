@@ -48,6 +48,7 @@ class GyroscopeScreen(Screen):
     def disable(self):
         try:
             self.facade.disable()
+            self.reset_plots()
             Clock.unschedule(self.get_rotation)
         except NotImplementedError:
             import traceback
