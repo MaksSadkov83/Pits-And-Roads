@@ -34,6 +34,7 @@
     BoxLayout:
         orientation: "vertical"
         BoxLayout:
+            size_hint_y: 0.5
             orientation: "horizontal"
             Button:
                 text: "Назад в меню"
@@ -42,19 +43,23 @@
                     root.manager.current = 'MainMenu'
             Label:
                 text: "Гироскоп"
+        Graph:
+            id: graph_plot
+            xlabel:'Время (x-К, y-З, z-C)'
+            ylabel:'Значение (°)'
+            y_grid_label: True
+            x_grid_label: True
+            padding: 5
+            xmin:0
+            xmax:100
+            ymin:-15
+            ymax:20
         Label:
-            id: x_gyroscope
-            text: "X: " + str(round(root.x_calib, 4)) + "°"
-        Label:
-            id: y_gyroscope
-            text: "Y: " + str(round(root.y_calib, 4)) + "°"
-        Label:
-            id: z_gyroscope
-            text: "Z: " + str(round(root.z_calib, 4)) + "°"
-        Label:
+            size_hint_y: 0.2
             id: accel_status
             text: ''
         BoxLayout:
+            size_hint_y: 0.5
             orientation: 'horizontal'
             Button:
                 id: enable_button
