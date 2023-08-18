@@ -70,7 +70,7 @@ class GyroscopeScreen(Screen):
             self.plot[0].points.append((self.counter, self.facade.rotation[0]))
             self.plot[1].points.append((self.counter, self.facade.rotation[1]))
             self.plot[2].points.append((self.counter, self.facade.rotation[2]))
-            self.ids.accel_status.text = f"X: {self.facade.rotation[0]}, Y: {self.facade.rotation[1]}, Z: {facade.rotation[2]}"
+            self.ids.accel_status.text = f"X: {round(self.facade.rotation[0], 4)}, Y: {round(self.facade.rotation[1], 4)}, Z: {round(self.facade.rotation[2], 4)}"
 
         self.counter += 1
 
@@ -137,7 +137,7 @@ class AccelerometerScreen(Screen):
             self.plot[0].points.append((self.counter, val[0]))
             self.plot[1].points.append((self.counter, val[1]))
             self.plot[2].points.append((self.counter, val[2]))
-            self.ids.accel_status.text = f"X: {val[0]}, Y: {val[1]}, Z: {val[2]}"
+            self.ids.accel_status.text = f"X: {round(val[0], 4)}, Y: {round(val[1], 4)}, Z: {round(val[2], 4)}"
 
         self.counter += 1
 
